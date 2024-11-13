@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ホーム</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+  <div class="highlight">
+    <div class="container">
+      <!-- ログイン中のユーザー名を表示 -->
+      <button type="button" id="changeableButton" class="btn btn-light btn-lg" style="padding: 10px 50px;" onclick="openModal(this)">
+        {{ nickname }}
+      </button>
+    </div>
+  
+    <!-- モーダル -->
+    <div class="modal fade" id="editButtonModal" tabindex="-1" aria-labelledby="editButtonModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editButtonModalLabel">名前変更</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <label for="newButtonText" class="form-label">新しい名前を入力してください</label>
+            <input type="text" class="form-control" id="newButtonText" placeholder="新しい名前">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+            <button type="button" class="btn btn-primary" onclick="updateButtonText()">変更</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- レベルバー -->
+    <div class="label-bar-container">
+      <span class="label">{{ difficulty }}</span>
+      <div class="bar-container">
+        <div class="bar" id="progressBar"></div>
+      </div>  
+    </div>
+
+    <!-- アバター -->
+    <div class="character">
+      <img src="{% static 'images/avatar.png' %}" alt="アバター画像">
+    </div>
+
+    <!-- メニューバー -->
+    <div class="menu-bar">
+      <a href="###" class="menu-item">学習</a>
+      <a href="###" class="menu-item">きせかえ</a>
+      <a href="###" class="menu-item">問題</a>
+      <a href="###" class="menu-item">資格</a>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // 初期値を設定
+    const initialValue = 80; // ここで値を変更
+    const bar = document.getElementById('progressBar');
+    bar.style.width = initialValue + '%'; // 幅を初期値に設定
+
+    // ボタンのテキストを更新する関数
+    function updateButtonText() {
+      const newButtonText = document.getElementById('newButtonText').value;
+      const button = document.getElementById('changeableButton');
+      button.textContent = newButtonText;
+
+      const modal = bootstrap.Modal.getInstance(document.getElementById('editButtonModal'));
+      modal.hide();
+    }
+
+    // モーダルを開く関数
+    function openModal(button) {
+      const modal = new bootstrap.Modal(document.getElementById('editButtonModal'));
+      modal.show();
+    }
+  </script>
+</body>
+</html>

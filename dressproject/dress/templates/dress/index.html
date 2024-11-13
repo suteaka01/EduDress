@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログインポップアップ</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="title-box">
+            <h2>題名</h2>
+        </div>
+        <!-- ログインボタンのIDをopenLoginBtnに変更 -->
+        <button id="openLoginBtn" class="login-button">ログイン</button>
+    </div>
+
+    <!-- ログインポップアップのコンテナ -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <h2>ログイン</h2>
+            <form method="post" action="{% url 'accounts:login' %}">
+                {% csrf_token %}
+                <label for="username">ニックネーム</label>
+                <input type="text" id="username" name="username">
+                
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password">
+                
+                <button type="submit">ログインする</button>
+                <button type="button" onclick="window.location.href='{% url 'accounts:signup' %}'">新規登録</button>
+            </form>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p class="{{ message.tags }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <span class="close" onclick="closePopup()">&times;</span>
+        </div>
+    </div>
+
+    <script src="{% static 'javaScript/login.js' %}"></script>
+</body>
+</html>

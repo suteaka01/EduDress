@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規登録</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h2>新規登録</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="nickname">ニックネーム</label>
+        <input type="text" id="nickname" name="nickname">
+        
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password">
+        
+        <label for="password_confirm">パスワード確認</label>
+        <input type="password" id="password_confirm" name="password_confirm">
+        
+        <button type="submit">登録</button>
+    </form>
+</body>
+</html>
